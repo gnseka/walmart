@@ -50,3 +50,27 @@ export const getAllProduct = (params) => {
     .then((res) => res.json())
     .then((json) => json);
 };
+
+export const getAllProductForCat = (category) => {
+  return fetch("https://fakestoreapi.com/products/category/" + category)
+    .then((res) => res.json())
+    .then((json) => json);
+};
+
+export const getLimitResult = (limit) => {
+  return fetch("https://fakestoreapi.com/products?limit=" + limit)
+    .then((res) => res.json())
+    .then((json) => json);
+};
+
+export const getProductId = (id) => {
+  return fetch("https://fakestoreapi.com/products/" + id)
+    .then((res) => res.json())
+    .then((json) => json);
+};
+
+export const getSorted = (sort) => {
+  return fetch('https://fakestoreapi.com/products?sort='+sort)
+  .then(res=>res.json())
+  .then(json=> (json))
+};

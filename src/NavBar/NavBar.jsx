@@ -13,9 +13,11 @@ import LoginForm from "../LoginForm/LoginForm";
 import { useEffect, useState } from "react";
 import SignUp from "../SignUp/SignUp";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
-function NavbarDark() {
+let ignore = false;
+
+function NavbarDark({ setselectedCatergory }) {
   const [AllCategories, setCategories] = useState([]);
   const [show, setShow] = useState(false);
   const [showSignUp, setshowSignUp] = useState(false);
@@ -40,10 +42,22 @@ function NavbarDark() {
   const handleSignUpShow = () => setshowSignUp(true);
 
   useEffect(() => {
-    getAllCategories().then((response) => {
-      setCategories(response);
-    });
+    if (!ignore) {
+      getAllCategories().then((response) => {
+        setCategories(response);
+        ignore = true;
+      });
+    }
+    return () => {
+      ignore = true;
+    };
   }, []);
+
+  const onCategorySelect = (eventkey) => {
+    if (!("Categories" === eventkey.target.text)) {
+      setselectedCatergory(eventkey.target.text);
+    }
+  };
 
   return (
     <>
@@ -59,27 +73,21 @@ function NavbarDark() {
             <Nav className="me-auto">
               <Nav.Link href="#features">Features</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link>
-              <NavDropdown title="Categories" id="collasible-nav-dropdown">
-                {AllCategories.map((element) => {
+              <NavDropdown
+                title="Categories"
+                id="collasible-nav-dropdown"
+                onClick={onCategorySelect}
+              >
+                {AllCategories.map((element, index) => {
                   return (
-                    <NavDropdown.Item href="#action/3.1">
+                    <NavDropdown.Item key={index} href="#action/3.1">
                       {element}
                     </NavDropdown.Item>
                   );
                 })}
-
-                {/* <NavDropdown.Item href="#action/3.2">jewelery</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">
-                men's clothing
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                women's clothing
-              </NavDropdown.Item> */}
               </NavDropdown>
             </Nav>
             <Nav>
-              {/* <Nav.Link href="#deets">More deets</Nav.Link> */}
               <Nav.Link href="#deets">
                 <img
                   height={50}
