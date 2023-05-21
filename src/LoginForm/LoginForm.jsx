@@ -2,9 +2,9 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import { loginUser } from "../utils";
+import { loginUser, getUserId } from "../utils";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function LoginForm({ setShow }) {
   const [formData, setFormData] = useState({
@@ -53,7 +53,11 @@ function LoginForm({ setShow }) {
       seterrormessage("Enter Password more than 5 character");
       return;
     }
+    const userId = await getUserId(formData.userName);
+
     localStorage.setItem("username", formData.userName);
+    localStorage.setItem("userId", userId);
+
     const response = await loginUser({
       username: formData.userName,
       password: formData.password,
@@ -65,7 +69,6 @@ function LoginForm({ setShow }) {
 
     if (response.token) {
       setShow(false);
-
       toast("user logged with token " + response.token);
     }
   };

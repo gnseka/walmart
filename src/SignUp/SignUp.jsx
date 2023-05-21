@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 import { postLogin } from "../utils";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function SignUp({ setshowSignUp }) {
   const [formData, setFormData] = useState({
@@ -67,10 +67,6 @@ function SignUp({ setshowSignUp }) {
       password: formData.password,
       name: formData.name,
     });
-
-    console.log(formData);
-    console.log(isChecked);
-    console.log(response, "sign up user response");
 
     if (response.id) {
       setshowSignUp(false);

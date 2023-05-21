@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.card-img {
+  width: 18rem !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .card-img {
+    width: 100% !important;
+  } 
+}

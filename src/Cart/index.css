@@ -1,0 +1,10 @@
+.cart {
+    position: absolute;
+    left: 10px;
+    bottom: -20px;
+    background-color: #ff00009e;
+    border-radius: 10vw;
+    height: 3vh;
+    width: 3vw;
+    text-align: center;
+}

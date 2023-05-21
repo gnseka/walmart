@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 import { getAllCategories } from "../utils";
@@ -12,6 +11,7 @@ import LoginForm from "../LoginForm/LoginForm";
 
 import { useEffect, useState } from "react";
 import SignUp from "../SignUp/SignUp";
+import Cart from "../Cart/Cart";
 
 import { ToastContainer } from "react-toastify";
 
@@ -40,6 +40,14 @@ function NavbarDark({ setselectedCatergory }) {
   const handleShow = () => setShow(true);
 
   const handleSignUpShow = () => setshowSignUp(true);
+
+  const handleLogout = () => {
+    // localStorage.clear();
+    localStorage.removeItem("userId", "");
+    localStorage.removeItem("username", "");
+    setloggedInuserName("");
+    window.location.reload();
+  };
 
   useEffect(() => {
     if (!ignore) {
@@ -89,12 +97,7 @@ function NavbarDark({ setselectedCatergory }) {
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <img
-                  height={50}
-                  width={50}
-                  alt="Cart image"
-                  src="https://thumbs.dreamstime.com/b/shopping-icon-shopping-cart-icon-dark-background-simple-vector-icon-shopping-icon-shopping-cart-icon-dark-background-116659167.jpg"
-                ></img>
+                <Cart />
               </Nav.Link>
               {!loggedInuserName && (
                 <Nav.Link href="#deets">
@@ -103,12 +106,36 @@ function NavbarDark({ setselectedCatergory }) {
               )}
               {!loggedInuserName && (
                 <Nav.Link href="#deets">
-                  <h3 onClick={handleShow}>Login In</h3>
+                  <h3 onClick={handleShow}>Log In</h3>
                 </Nav.Link>
               )}
               <Nav.Link>
                 <h3>{loggedInuserName}</h3>
               </Nav.Link>
+              {loggedInuserName && (
+                <Nav.Link href="#deets">
+                  <h3 onClick={handleLogout}>
+                    Log
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="32"
+                      height="32"
+                      fill="currentColor"
+                      class="bi bi-box-arrow-right"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                      />
+                    </svg>
+                  </h3>
+                </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

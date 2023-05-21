@@ -10,8 +10,8 @@ export const getAllCategories = () => {
 export const loginUser = ({ username, password }) => {
   return axios
     .post("https://fakestoreapi.com/auth/login", {
-      username: "mor_2314",
-      password: "83r5^_",
+      username,
+      password,
     })
     .then((res) => res.data)
     .catch((error) => console.log(error));
@@ -70,7 +70,47 @@ export const getProductId = (id) => {
 };
 
 export const getSorted = (sort) => {
-  return fetch('https://fakestoreapi.com/products?sort='+sort)
-  .then(res=>res.json())
-  .then(json=> (json))
+  return fetch("https://fakestoreapi.com/products?sort=" + sort)
+    .then((res) => res.json())
+    .then((json) => json);
+};
+
+export const addCart = (userId, products) => {
+  return fetch("https://fakestoreapi.com/carts", {
+    method: "POST",
+    body: JSON.stringify({
+      userId: 3,
+      date: "2020-02-03",
+      products: [
+        { productId: 5, quantity: 1 },
+        { productId: 1, quantity: 5 },
+      ],
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => json);
+};
+
+const getAllUser = () => {
+  return fetch("https://fakestoreapi.com/users")
+    .then((res) => res.json())
+    .then((json) => json);
+};
+
+export const getUserId = async (username) => {
+  let allusers = await getAllUser();
+  let selectedUser = "";
+  allusers.forEach((element) => {
+    if (element.username === username) {
+      selectedUser = element.id;
+      return;
+    }
+  });
+  return selectedUser;
+};
+
+export const getUserCart = (userId) => {
+  return fetch("https://fakestoreapi.com/carts/user/" + userId)
+    .then((res) => res.json())
+    .then((json) => json);
 };
