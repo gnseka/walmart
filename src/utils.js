@@ -114,3 +114,9 @@ export const getUserCart = (userId) => {
     .then((res) => res.json())
     .then((json) => json);
 };
+
+export const getProductById = (id) => {
+  return fetch("https://fakestoreapi.com/products/" + id)
+    .then((res) => res.json())
+    .then((json) => json);
+};

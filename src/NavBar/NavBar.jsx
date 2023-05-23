@@ -14,10 +14,11 @@ import SignUp from "../SignUp/SignUp";
 import Cart from "../Cart/Cart";
 
 import { ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 let ignore = false;
 
-function NavbarDark({ setselectedCatergory }) {
+function NavbarDark() {
   const [AllCategories, setCategories] = useState([]);
   const [show, setShow] = useState(false);
   const [showSignUp, setshowSignUp] = useState(false);
@@ -61,11 +62,11 @@ function NavbarDark({ setselectedCatergory }) {
     };
   }, []);
 
-  const onCategorySelect = (eventkey) => {
-    if (!("Categories" === eventkey.target.text)) {
-      setselectedCatergory(eventkey.target.text);
-    }
-  };
+  // const onCategorySelect = (eventkey) => {
+  //   if (!("Categories" === eventkey.target.text)) {
+  //     setselectedCatergory(eventkey.target.text);
+  //   }
+  // };
 
   return (
     <>
@@ -79,16 +80,20 @@ function NavbarDark({ setselectedCatergory }) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
+              <Nav.Link>
+                <Link to={`/features`}>Features</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to={`/pricing`}>Pricing</Link>
+              </Nav.Link>
               <NavDropdown
                 title="Categories"
                 id="collasible-nav-dropdown"
-                onClick={onCategorySelect}
+                // onClick={onCategorySelect}
               >
                 {AllCategories.map((element, index) => {
                   return (
-                    <NavDropdown.Item key={index} href="#action/3.1">
+                    <NavDropdown.Item key={index} href={"/category/" + element}>
                       {element}
                     </NavDropdown.Item>
                   );

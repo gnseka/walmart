@@ -8,10 +8,13 @@ import FilterProducts from "./FilterProducts";
 
 import { toast } from "react-toastify";
 
-export default function Main({ selectedCatergory }) {
+import { useParams } from "react-router-dom";
+
+export default function Main() {
   const [productsOnCatergories, setproductsOnCatergories] = useState([]);
   const [productsOnFilters, setProductsOnFilters] = useState([]);
 
+  const { categoryName } = useParams();
   useEffect(() => {
     if (productsOnFilters.length) {
       setproductsOnCatergories([]);
@@ -19,12 +22,12 @@ export default function Main({ selectedCatergory }) {
   }, [productsOnFilters]);
 
   useEffect(() => {
-    if (selectedCatergory) {
-      getAllProductForCat(selectedCatergory)
+    if (categoryName) {
+      getAllProductForCat(categoryName)
         .then((res) => setproductsOnCatergories(res))
         .catch((err) => console.log(err));
     }
-  }, [selectedCatergory]);
+  }, [categoryName]);
 
   const addCartCall = () => {
     addCart().then((response) => {
